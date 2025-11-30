@@ -1,14 +1,22 @@
 import Foundation
 
-protocol NewsRepositoryProtocol: AnyObject  {
+// MARK: - NewsRepositoryProtocol
+
+protocol NewsRepositoryProtocol: AnyObject {
     func getNewsPage(page: Int, pageSize: Int) async throws -> News
 }
 
+// MARK: - NewsRepository
+
 final class NewsRepository<Cache: CacheProtocol>: NewsRepositoryProtocol where Cache.Value == Data {
+    
+    // MARK: - Properties
+    
     let fileManager: PrefixedFileExchangeProtocol
     private let cache: Cache
     let loader: NewsDTOLoaderProtocol
     
+    // MARK: - Init
     
     init(fileManager: PrefixedFileExchangeProtocol, cache: Cache, loader: NewsDTOLoaderProtocol) {
         self.fileManager = fileManager
@@ -16,6 +24,8 @@ final class NewsRepository<Cache: CacheProtocol>: NewsRepositoryProtocol where C
         self.loader = loader
     }
 
+    // MARK: - NewsRepositoryProtocol
+    
     func getNewsPage(page: Int, pageSize: Int) async throws -> News {
         let key = NewsPageKey(key: String(page), pageSize: pageSize)
 
@@ -37,18 +47,20 @@ final class NewsRepository<Cache: CacheProtocol>: NewsRepositoryProtocol where C
         let dto = try decode(data)
         return News(dto)
     }
-}
-
-private extension NewsRepository {
-    func decode(_ data: Data) throws -> NewsDTO {
+    
+    // MARK: - Private Methods
+    
+    private func decode(_ data: Data) throws -> NewsDTO {
         let dto = try JSONDecoder().decode(NewsDTO.self, from: data)
         return dto
     }
     
-    func encode(_ news: News) throws -> Data {
+    private func encode(_ news: News) throws -> Data {
         return try JSONEncoder().encode(news)
     }
 }
+
+// MARK: - NewsRepositoryError
 
 enum NewsRepositoryError: Error {
     case errorGetNextPageNews

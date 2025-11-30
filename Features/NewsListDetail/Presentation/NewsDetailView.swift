@@ -15,7 +15,7 @@ final class NewsDetailView: UIView, NewsDetailViewProtocol {
     private let titleSubtitleView = TitleSubTitleVStack()
     private let imageView = LoadableImageView()
     private let bodyLabel = ExpandableLabelView()
-    private let buttonOpenSafari = ButtonFactory().make(ButtonConfig(cornerRadius: 6, backgroundColor: .darkGray))
+    private let buttonOpenSafari = ButtonFactory().make(ButtonConfig(cornerRadius: 6, backgroundColor: .darkGray, contentInsets: NSDirectionalEdgeInsets(top: 2, leading: 5, bottom: 2, trailing: 5)))
     
     // MARK: - Publisher
     var openSafariPublisher: AnyPublisher<Void, Never> {
