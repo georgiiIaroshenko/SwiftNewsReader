@@ -233,9 +233,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **Your Name**
 
-- GitHub: [@yourusername](https://github.com/georgiiIaroshenko)
-- LinkedIn: [Your Profile](www.linkedin.com/in/georgii-iaroshenko)
-- Telegram: [@yourtelegram](https://t.me/@iaroshGeor)
+- GitHub: [@EgorIaroshenko](https://github.com/georgiiIaroshenko)
+- LinkedIn: [Egor-iaroshenko](www.linkedin.com/in/georgii-iaroshenko)
+- Telegram: [@IaroshEgor](https://t.me/@iaroshGeor)
 
 ---
 
