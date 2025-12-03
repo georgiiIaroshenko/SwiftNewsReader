@@ -10,8 +10,9 @@ struct LabelConfig {
     var isUserInteractionEnabled: Bool
     var cornerRadius: CGFloat
     var masksToBounds: Bool
-    var backgroundColor: UIColor
     var textInsets: UIEdgeInsets
+    var backgroundColor: UIColor
+    var isOpaque: Bool = true
     
     init(font: UIFont = .preferredFont(forTextStyle: .body),
          textColor: UIColor = .label,
@@ -22,8 +23,9 @@ struct LabelConfig {
          isUserInteractionEnabled: Bool = true,
          cornerRadius: CGFloat = 0,
          masksToBounds: Bool = false,
-         backgroundColor: UIColor = .white,
-         textInsets: UIEdgeInsets = .init(top: 0, left: 0, bottom: 0, right: 0)) {
+         textInsets: UIEdgeInsets = .init(top: 0, left: 0, bottom: 0, right: 0),
+         backgroundColor: UIColor = .secondarySystemBackground,
+         isOpaque: Bool = true) {
         self.font = font
         self.textColor = textColor
         self.textAlignment = textAlignment
@@ -33,8 +35,9 @@ struct LabelConfig {
         self.isUserInteractionEnabled = isUserInteractionEnabled
         self.cornerRadius = cornerRadius
         self.masksToBounds = masksToBounds
-        self.backgroundColor = backgroundColor
         self.textInsets = textInsets
+        self.backgroundColor = backgroundColor
+        self.isOpaque = isOpaque
     }
 }
 
@@ -51,7 +54,6 @@ final class LabelFactory {
         label.isUserInteractionEnabled = config.isUserInteractionEnabled
         label.layer.cornerRadius = config.cornerRadius
         label.layer.masksToBounds = config.masksToBounds
-        label.backgroundColor = config.backgroundColor
         label.textInsets = config.textInsets
         return label
     }

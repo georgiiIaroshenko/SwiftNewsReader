@@ -9,12 +9,14 @@ final class TitleSubTitleVStack: UIView, TitleSubTitleVStackProtocol {
     private let vStack = StackFactory().make(.init(axis: .vertical, spacing: 6))
     private let titleLabel = LabelFactory().make(.init(
         font: .preferredFont(forTextStyle: .headline),
-        numberOfLines: 1
+        textColor: UIColor.darkText,
+        numberOfLines: 1,
     ))
+    
     private let subtitleLabel = LabelFactory().make(.init(
         font: .preferredFont(forTextStyle: .subheadline),
-        textColor: .secondaryLabel,
-        numberOfLines: 1
+        textColor: UIColor.secondaryLabel,
+        numberOfLines: 1,
     ))
     
     override init(frame: CGRect) {

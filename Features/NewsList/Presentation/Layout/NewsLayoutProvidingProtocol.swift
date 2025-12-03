@@ -15,22 +15,21 @@ extension NewsLayoutProvidingProtocol {
     ) -> CGSize {
         let horizontalInsets: CGFloat = 24
         let interItemSpacing: CGFloat = 6
-
+        
         let totalSpacing = interItemSpacing * CGFloat(max(columns - 1, 0))
         let available = containerWidth - horizontalInsets - totalSpacing
         let width = floor(available / CGFloat(columns))
-
+        
         let aspect: CGFloat = 9.0 / 16.0
         let height = width * aspect
-
+        
         return CGSize(width: width, height: height)
     }
     
     func makeLayout() -> UICollectionViewCompositionalLayout {
         UICollectionViewCompositionalLayout { [weak self] _, environment in
             guard let self else { return nil }
-            let containerWidth = environment.container.effectiveContentSize.width
-                    let trait = environment.traitCollection
+            let trait = environment.traitCollection
             
             let column: Int
             if trait.horizontalSizeClass == .compact {
@@ -44,20 +43,26 @@ extension NewsLayoutProvidingProtocol {
                 heightDimension: .estimated(330)
             )
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
-            item.contentInsets = .init(top: 0, leading: 12, bottom: 0, trailing: 12)
-            
             let groupSize = NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1.0),
                 heightDimension: .estimated(330)
             )
+            
             let group = NSCollectionLayoutGroup.horizontal(
                 layoutSize: groupSize,
                 subitem: item,
                 count: column
             )
-            group.interItemSpacing = .fixed(6)
+            group.interItemSpacing = .fixed(10)
             
             let section = NSCollectionLayoutSection(group: group)
+            section.contentInsets = NSDirectionalEdgeInsets(
+                top: 6,
+                leading: 6,
+                bottom: 6,
+                trailing: 6
+            )
+            section.interGroupSpacing = 10
             
             let footerSize = NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1.0),

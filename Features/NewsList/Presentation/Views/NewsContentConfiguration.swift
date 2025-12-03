@@ -6,7 +6,7 @@ struct NewsContentConfiguration: UIContentConfiguration, Equatable {
     let imageSize: CGSize
     
     func makeContentView() -> UIView & UIContentView {
-        NewsContentView(configuration: self)
+        MainNewsCellContentView(configuration: self)
     }
 
     func updated(for state: UIConfigurationState) -> NewsContentConfiguration {

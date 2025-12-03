@@ -43,10 +43,6 @@ final class NewsViewController: UIViewController {
         setupBindingsModel()
         setupBindingsCollectionView()
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        animationView.startAnimation()
-    }
 }
 
 // MARK: - SetupView
@@ -57,12 +53,13 @@ extension NewsViewController: SetupView {
     func setupView() {
         setupSubView()
         setupConstraints()
-        
+        animationView.startAnimation()
+
         Task { [weak self] in
             do {
                 try await self?.model.getNews()
-                self?.animationView.stopAnimation()
             } catch let error {
+                self?.animationView.stopAnimation()
                 print("❌ [NewsViewController] Failed to load first page: \(error.localizedDescription)")
             }
         }
@@ -76,7 +73,7 @@ extension NewsViewController: SetupView {
     
     func setupConstraints() {
         [animationView, collectionView].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
-        fillToParent(collectionView)
+        fillToParentSafeAreaLayoutGuide(view, collectionView)
         fillToParent(animationView)
     }
     
@@ -84,6 +81,9 @@ extension NewsViewController: SetupView {
         model.news
             .sink { [weak self] models in
                 self?.collectionView.replaceAll(with: models, animated: true)
+                if !models.isEmpty {
+                    self?.animationView.stopAnimation()
+                }
             }
             .store(in: &bag)
     }

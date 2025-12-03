@@ -89,8 +89,9 @@ actor ImageService<Cache: CacheProtocol>: ImageServiceProtocol where Cache.Value
 }
 
 private extension ImageService {
-    private func decode(_ data: Data) -> UIImage? {
-        return UIImage(data: data)
+    private func decode(_ data: Data) async -> UIImage? {
+        guard let image = UIImage(data: data) else { return nil }
+        return await image.byPreparingForDisplay()
     }
     private func encode(_ image: UIImage) throws -> Data {
         guard let data = image.jpegData(compressionQuality: 0.7) else { throw ImageServiceError.encodeFailed }

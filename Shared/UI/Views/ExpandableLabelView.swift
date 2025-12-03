@@ -2,7 +2,7 @@ import UIKit
 import Combine
 
 final class ExpandableLabelView: UIView, ContentResettable {
-    private let label = LabelFactory().make(.init(numberOfLines: 0, isUserInteractionEnabled: true))
+    private let label = LabelFactory().make(.init(textColor: UIColor.label , numberOfLines: 0, isUserInteractionEnabled: true))
     
     private let expansionSubject = PassthroughSubject<Bool, Never>()
     var expansion: AnyPublisher<Bool, Never> { expansionSubject.eraseToAnyPublisher() }

@@ -19,7 +19,7 @@ final class NewsCollectionView: UIView, NewsCollectionViewProtocol {
     
     private enum Constants {
         static let pullToRefreshThreshold: CGFloat = 100
-        static let pullToRefreshTrigger: CGFloat = 60
+        static let pullToRefreshTrigger: CGFloat = 100
     }
     
     private let collectionView: UICollectionView

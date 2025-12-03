@@ -1,6 +1,6 @@
 import UIKit
 
-final class NewsContentView: UIView, UIContentView {
+final class MainNewsCellContentView: UIView, UIContentView {
     private let titleSubtitleView = TitleSubTitleVStack()
     private let imageView = LoadableImageView()
     private let bodyLabel = ExpandableLabelView()
@@ -45,8 +45,9 @@ final class NewsContentView: UIView, UIContentView {
     }
 }
 
-extension NewsContentView: SetupView {
+extension MainNewsCellContentView: SetupView {
     func setupView() {
+        layer.cornerRadius = 12
         setupSubView()
         setupConstraints()
     }
@@ -57,7 +58,14 @@ extension NewsContentView: SetupView {
     }
     
     func setupConstraints() {
-        metaStack.translatesAutoresizingMaskIntoConstraints = false 
-        fillToParent(metaStack)
+        metaStack.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            metaStack.topAnchor.constraint(equalTo: topAnchor, constant: 5),
+            metaStack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
+            metaStack.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
+            metaStack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5)
+        ])
+        layer.borderWidth = 1
+        layer.borderColor = UIColor.separator.cgColor
     }
 }

@@ -15,7 +15,7 @@ final class NewsDetailView: UIView, NewsDetailViewProtocol {
     private let titleSubtitleView = TitleSubTitleVStack()
     private let imageView = LoadableImageView()
     private let bodyLabel = ExpandableLabelView()
-    private let buttonOpenSafari = ButtonFactory().make(ButtonConfig(cornerRadius: 6, backgroundColor: .darkGray, contentInsets: NSDirectionalEdgeInsets(top: 2, leading: 5, bottom: 2, trailing: 5)))
+    private let buttonOpenSafari = ButtonFactory().make(ButtonConfig(cornerRadius: 6, contentInsets: NSDirectionalEdgeInsets(top: 2, leading: 5, bottom: 2, trailing: 5)))
     
     // MARK: - Publisher
     var openSafariPublisher: AnyPublisher<Void, Never> {
@@ -59,7 +59,6 @@ final class NewsDetailView: UIView, NewsDetailViewProtocol {
 
 extension NewsDetailView: SetupView {
     func setupView() {
-        backgroundColor = .white
         setupSubView()
         setupConstraints()
     }
@@ -83,7 +82,7 @@ extension NewsDetailView: SetupView {
     
     func setupConstraints() {
         NSLayoutConstraint.activate([
-            metaStack.topAnchor.constraint(equalTo: topAnchor, constant: 5),
+            metaStack.topAnchor.constraint(equalTo: topAnchor, constant: 20),
             metaStack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
             metaStack.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
         ])

@@ -35,7 +35,6 @@ final class StackFactory {
         stack.distribution = config.distribution
         stack.isLayoutMarginsRelativeArrangement = config.isLayoutMarginsRelativeArrangement
         stack.directionalLayoutMargins = config.contentInsets
-        
         if let margins = config.margins {
             stack.isLayoutMarginsRelativeArrangement = true
             stack.directionalLayoutMargins = margins
