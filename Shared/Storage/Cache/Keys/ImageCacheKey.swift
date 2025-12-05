@@ -1,10 +1,10 @@
 import Foundation
 
-struct ImageCacheKey: Hashable {
+struct ImageCacheKey {
     let url: String
     let size: CGSize
 }
-extension ImageCacheKey {
+extension ImageCacheKey: Hashable {
     func hash(into hasher: inout Hasher) {
         hasher.combine(url)
     }

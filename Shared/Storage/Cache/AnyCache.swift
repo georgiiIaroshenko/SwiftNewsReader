@@ -1,6 +1,6 @@
 import UIKit
 
-final class AnyCache<T: Costable>: CacheProtocol {
+final class AnyCache<T>: CacheProtocol where T: CostableProtocol {
     typealias Value = T
     private let cache = NSCache<NSString, AnyObject>()
     
