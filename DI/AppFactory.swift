@@ -24,22 +24,16 @@ final class AppFactory: AppFactoryProtocol {
     
     // MARK: - Init
     
-    init() {
-        // Layout provider
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            layoutProvider = NewsIpadLayoutProvider()
-        } else {
-            layoutProvider = NewsIphoneLayoutProvider()
-        }
-        
+    init(idiom: UIUserInterfaceIdiom = UIDevice.current.userInterfaceIdiom) {
         // File managers
+        layoutProvider = LayoutProviderFactory.make(for: idiom)
         let fileManager = RootFileExchange()
         let imageFileManager = ImageFileExchange(exchange: fileManager)
         let newsFileManager = NewsFileExchange(exchange: fileManager)
         
         // Caches
-        let imageCache = AnyCache<UIImage>(limit: CacheLimit())
-        let newsCache = AnyCache<Data>(limit: CacheLimit())
+        let imageCache = AnyCache<CachedImage>(limit: CacheLimit())
+        let newsCache = AnyCache<CachedData>(limit: CacheLimit())
         let imageDownsampler = ImageDownsampler()
         
         // Network

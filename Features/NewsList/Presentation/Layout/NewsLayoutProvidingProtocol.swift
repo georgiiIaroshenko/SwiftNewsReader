@@ -1,43 +1,42 @@
 import UIKit
 
 protocol NewsLayoutProvidingProtocol: AnyObject {
-    var columns: Int { get }
     var portretСolumns: Int { get }
+    var landscapeColumns: Int { get }
+    func columns(for environment: NSCollectionLayoutEnvironment) -> Int
+    
     func makeLayout() -> UICollectionViewCompositionalLayout
-    func imageSize(for containerWidth: CGFloat,
-                       trait: UITraitCollection) -> CGSize
+    func imageSize(for containerWidth: CGFloat, trait: UITraitCollection) -> CGSize
 }
 
 extension NewsLayoutProvidingProtocol {
+    func columns(for environment: NSCollectionLayoutEnvironment) -> Int {
+            let size = environment.container.effectiveContentSize
+            let isLandscape = size.width > size.height
+            return isLandscape ? landscapeColumns : portretСolumns
+        }
+    
     func imageSize(
-        for containerWidth: CGFloat,
-        trait: UITraitCollection
-    ) -> CGSize {
-        let horizontalInsets: CGFloat = 24
-        let interItemSpacing: CGFloat = 6
-        
-        let totalSpacing = interItemSpacing * CGFloat(max(columns - 1, 0))
-        let available = containerWidth - horizontalInsets - totalSpacing
-        let width = floor(available / CGFloat(columns))
-        
-        let aspect: CGFloat = 9.0 / 16.0
-        let height = width * aspect
-        
-        return CGSize(width: width, height: height)
-    }
+            for containerWidth: CGFloat,
+            trait: UITraitCollection
+        ) -> CGSize {
+            let horizontalInsets: CGFloat = 0
+            let width = containerWidth - horizontalInsets
+
+            let aspect: CGFloat = 9.0 / 16.0
+            let height = width * aspect
+
+            return CGSize(width: width, height: height)
+        }
     
     func makeLayout() -> UICollectionViewCompositionalLayout {
         UICollectionViewCompositionalLayout { [weak self] _, environment in
             guard let self else { return nil }
             let trait = environment.traitCollection
+            let isLandscape = trait.verticalSizeClass == .compact
             
-            let column: Int
-            if trait.horizontalSizeClass == .compact {
-                column = self.columns
-            } else {
-                column = self.portretСolumns
-            }
-            
+            let columnCount = self.columns(for: environment)
+
             let itemSize = NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1.0),
                 heightDimension: .estimated(330)
@@ -51,7 +50,7 @@ extension NewsLayoutProvidingProtocol {
             let group = NSCollectionLayoutGroup.horizontal(
                 layoutSize: groupSize,
                 subitem: item,
-                count: column
+                count: columnCount
             )
             group.interItemSpacing = .fixed(10)
             
