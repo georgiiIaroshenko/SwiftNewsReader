@@ -1,4 +1,4 @@
-# 📰 AutoNews
+# 📰 SwiftNewsReader
 
 > Elegant iOS news reader built with modern Swift architecture
 
@@ -7,10 +7,6 @@
 [![UIKit](https://img.shields.io/badge/UIKit-Programmatic-green.svg)](https://developer.apple.com/documentation/uikit)
 [![Architecture](https://img.shields.io/badge/Architecture-MVVM--C-purple.svg)](https://en.wikipedia.org/wiki/Model–view–viewmodel)
 [![License](https://img.shields.io/badge/License-MIT-lightgrey.svg)](LICENSE)
-
-<p align="center">
-  <img src="Assets/hero-banner.png" alt="AutoNews Hero" width="100%">
-</p>
 
 ## ✨ Features
 
